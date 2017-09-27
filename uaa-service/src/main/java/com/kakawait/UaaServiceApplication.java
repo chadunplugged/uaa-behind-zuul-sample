@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.session.web.http.CookieHttpSessionStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -50,6 +51,14 @@ public class UaaServiceApplication extends WebMvcConfigurerAdapter {
         filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return filterRegBean;
     }
+/*
+    @Bean
+    public CookieHttpSessionStrategy cookieHttpSessionStrategy() {
+        CookieHttpSessionStrategy strategy = new CookieHttpSessionStrategy();
+        //strategy.setCookieSerializer(newCustomerCookieSerializer());
+        strategy.setCookieName("JSESSIONID");
+        return strategy;
+    }*/
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

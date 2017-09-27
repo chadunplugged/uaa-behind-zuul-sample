@@ -31,7 +31,7 @@ public class DummyServiceApplication {
         @RequestMapping(method = RequestMethod.GET)
         @ResponseBody
         public String helloWorld(Principal principal) {
-            return principal == null ? "Hello anonymous" : "Hello " + principal.getName();
+            return principal == null ? "Hello anonymous" : "Hello 2" + principal.getName();
         }
 
         @PreAuthorize("#oauth2.hasScope('openid') and hasRole('ROLE_ADMIN')")

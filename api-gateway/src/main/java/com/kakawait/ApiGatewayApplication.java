@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider;
+import org.springframework.session.web.http.CookieHttpSessionStrategy;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,10 +32,13 @@ public class ApiGatewayApplication {
 
     @Bean
     UserInfoRestTemplateCustomizer userInfoRestTemplateCustomizer(SpringClientFactory springClientFactory) {
+
+        AuthorizationCodeAccessTokenProvider atp = new AuthorizationCodeAccessTokenProvider();
+        //atp.setStateMandatory(false);
         return template -> {
             AccessTokenProviderChain accessTokenProviderChain = Stream
                     .of(
-                            new AuthorizationCodeAccessTokenProvider(),
+                            atp,
                             new ImplicitAccessTokenProvider(),
                             new ResourceOwnerPasswordAccessTokenProvider(),
                             new ClientCredentialsAccessTokenProvider())
@@ -42,6 +46,14 @@ public class ApiGatewayApplication {
                     .collect(Collectors.collectingAndThen(Collectors.toList(), AccessTokenProviderChain::new));
             template.setAccessTokenProvider(accessTokenProviderChain);
         };
+    }
+
+    @Bean
+    public CookieHttpSessionStrategy cookieHttpSessionStrategy() {
+        CookieHttpSessionStrategy strategy = new CookieHttpSessionStrategy();
+        //strategy.setCookieSerializer(newCustomerCookieSerializer());
+        strategy.setCookieName("JSESSIONID");
+        return strategy;
     }
 
 }

@@ -3,11 +3,20 @@ spring:
     proxyTargetClass: true
   application:
     name: api-gateway
-
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    store-type: redis
+    redis:
+      namespace: xxxx
+      flush-mode: immediate
 # Define the port where the API gateway server would be running
 server:
   port: 8765
-
+#  session:
+#    cookie:
+#      name: GSSION
 # Define the Eureka server that handles service registration
 eureka:
   instance:
@@ -36,8 +45,16 @@ security:
     client:
       accessTokenUri: http://uaa-service/uaa/oauth/token
       userAuthorizationUri: /uaa/oauth/authorize
+#      accessTokenUri: http://api-gateway/uaa/oauth/token
+#      userAuthorizationUri: /uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
+      grant-type: authorization_code
+#      authorized-grant-types:
+#        - password
+#        - authorization_code
+#        - refresh_token
+#      authentication-scheme: header #form none query
     resource:
       jwt:
         keyValue: |

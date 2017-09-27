@@ -1,14 +1,23 @@
 spring:
   application:
     name: uaa-service
-
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    store-type: redis
+    redis:
+      namespace: yyyy
+#      flush-mode: immediate
 # Define the port where the UAA server would be running
 server:
   port: 8769
   # Use different context-path to avoid session cookie overlapping
   context-path: /uaa
-  use-forward-headers: false
-
+#  use-forward-headers: false
+#  session:
+#    cookie:
+ #     name: USESSION
 # Define the Eureka server that handles service registration
 eureka:
   instance:

@@ -28,8 +28,12 @@ class DynamicOauth2ClientContextFilter extends OAuth2ClientContextFilter {
             builder.queryParam(param.getKey(), param.getValue());
         }
 
-        if (e.getStateKey() != null) {
+        /*if (e.getStateKey() != null) {
             builder.queryParam("state", e.getStateKey());
+        }*/
+
+        if (e.getStateKey() != null) {
+            builder.queryParam("state", new Object[]{e.getStateKey()});
         }
 
         String url = getBaseUrl(request) + builder.build().encode().toUriString();
