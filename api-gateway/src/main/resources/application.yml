@@ -43,10 +43,10 @@ security:
     sso:
       loginPath: /login
     client:
-      accessTokenUri: http://uaa-service/uaa/oauth/token
-      userAuthorizationUri: /uaa/oauth/authorize
-#      accessTokenUri: http://api-gateway/uaa/oauth/token
+#      accessTokenUri: http://uaa-service/uaa/oauth/token
 #      userAuthorizationUri: /uaa/oauth/authorize
+      accessTokenUri: http://api-gateway/uaa/oauth/token
+      userAuthorizationUri: /uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
       grant-type: authorization_code

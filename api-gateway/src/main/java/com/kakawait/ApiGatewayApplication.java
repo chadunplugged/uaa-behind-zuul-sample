@@ -35,7 +35,7 @@ public class ApiGatewayApplication {
     @Bean
     UserInfoRestTemplateCustomizer userInfoRestTemplateCustomizer(LoadBalancerInterceptor loadBalancerInterceptor) {
         return template -> {
-            List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+            List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>(template.getInterceptors());
             interceptors.add(loadBalancerInterceptor);
             AccessTokenProviderChain accessTokenProviderChain = Stream
                     .of(new AuthorizationCodeAccessTokenProvider(), new ImplicitAccessTokenProvider(),
